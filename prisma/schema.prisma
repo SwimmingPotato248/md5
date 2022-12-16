@@ -22,6 +22,7 @@ model User {
   role          Role
   exams         Exam[]
   exam_attempts ExamAttempt[]
+  Question      Question[]
 }
 
 enum Role {
@@ -36,14 +37,18 @@ model Exam {
   user          User          @relation(fields: [user_id], references: [id])
   user_id       String
   exam_attempts ExamAttempt[]
+  questions     Question[]
 }
 
 model Question {
   id      String @id @default(cuid())
   content String
+  user    User   @relation(fields: [user_id], references: [id])
+  exams   Exam[]
 
   answers        Answer[]
   attempt_detail AttemptDetail[]
+  user_id        String
 }
 
 model Answer {
