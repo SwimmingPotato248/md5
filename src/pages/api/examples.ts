@@ -8,3 +8,4 @@ const examples = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 export default examples;
+  
