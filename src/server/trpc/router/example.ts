@@ -10,7 +10,9 @@ export const exampleRouter = router({
         greeting: `Hello ${input?.text ?? "world"}`,
       };
     }),
-  getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.example.findMany();
-  }),
+  echo: publicProcedure
+    .input(z.object({ text: z.string() }))
+    .query(({ input }) => {
+      return input.text;
+    }),
 });

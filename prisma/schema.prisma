@@ -46,9 +46,12 @@ model Question {
   user    User   @relation(fields: [user_id], references: [id])
   exams   Exam[]
 
+  category Category @relation(fields: [category_id], references: [id])
+
   answers        Answer[]
   attempt_detail AttemptDetail[]
   user_id        String
+  category_id    String
 }
 
 model Answer {
@@ -60,8 +63,9 @@ model Answer {
 }
 
 model Category {
-  id   String @id @default(cuid())
-  name String
+  id       String     @id @default(cuid())
+  name     String
+  question Question[]
 }
 
 model ExamAttempt {
