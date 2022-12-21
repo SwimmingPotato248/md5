@@ -91,9 +91,16 @@ const CreateQuestionPage: NextPage = () => {
   if (isLoading || isError) return <div>Loading</div>;
 
   return (
-    <div className="flex w-full justify-center">
+    <div className="mx-auto mt-8 flex w-full flex-col bg-gray-200 p-12 lg:w-1/2">
+      <Link
+        href={"/users/questions"}
+        className="flex w-24 items-center gap-2 text-sm font-semibold text-red-500"
+      >
+        <ArrowLeftIcon className="h-3 w-3 " />
+        Go back
+      </Link>
       <form
-        className="flex w-96 flex-col gap-4"
+        className="mx-auto flex w-96 flex-col gap-4"
         onSubmit={(e) => {
           e.preventDefault();
           if (categoryRef.current?.value && contentRef.current?.value) {
@@ -105,7 +112,6 @@ const CreateQuestionPage: NextPage = () => {
           }
         }}
       >
-        <h2>Create Question Form</h2>
         <label className="flex flex-col text-sm">
           Question content
           <textarea
@@ -147,7 +153,7 @@ const CreateQuestionPage: NextPage = () => {
 
         <button
           type="button"
-          className="w-full border border-gray-800 py-1"
+          className="w-full border-2 border-gray-600 py-1 hover:border-gray-800"
           onClick={() => {
             setAnswers((prev) => {
               return [
