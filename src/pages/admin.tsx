@@ -4,39 +4,28 @@ import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import { trpc } from "../utils/trpc";
+import Message from "../components/message";
+import User from "../components/user";
 
 const Admin: NextPage = () => {
-    
-    
+    const {data: users} = trpc.user.getAll.useQuery();
+
     return (
 
         <>
-            <table className="table-auto">
-                <thead>
-                    <tr>
-                        <th className="px-4 py-2">Title</th>
-                        <th className="px-4 py-2">Author</th>
-                        <th className="px-4 py-2">Views</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td className="border px-4 py-2">Intro to CSS</td>
-                        <td className="border px-4 py-2">Adam</td>
-                        <td className="border px-4 py-2">858</td>
-                    </tr>
-                    <tr className="bg-gray-100">
-                        <td className="border px-4 py-2">A Long and Winding Tour of the History of UI Frameworks and Tools and the Impact on Design</td>
-                        <td className="border px-4 py-2">Adam</td>
-                        <td className="border px-4 py-2">112</td>
-                    </tr>
-                    <tr>
-                        <td className="border px-4 py-2">Intro to JavaScript</td>
-                        <td className="border px-4 py-2">Chris</td>
-                        <td className="border px-4 py-2">1,280</td>
-                    </tr>
-                </tbody>
-            </table>
+            <section className="bg-ct-blue-600 min-h-screen py-12">
+                <div>
+                    {users?.length === 0 ? (
+                        <Message>There are no user at the moment</Message>
+                    ) : (
+                        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5 px-6">
+                            {users?.map((user: any) => (
+                                <User user={user} />
+                            ))}
+                        </div>
+                    )}
+                </div>
+            </section>
         </>
     );
 };
