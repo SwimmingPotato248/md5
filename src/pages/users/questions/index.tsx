@@ -4,13 +4,8 @@ import { type NextPage } from "next";
 import Link from "next/link";
 
 const MyQuestionPage: NextPage = () => {
-  const { data, isLoading, isError, refetch } =
-    trpc.question.getQuestions.useQuery();
-  const { mutate } = trpc.question.delete.useMutation({
-    onSuccess() {
-      refetch();
-    },
-  });
+  const { data, isLoading, isError } = trpc.question.getQuestions.useQuery();
+
   if (isLoading) return <div>Loading</div>;
   if (isError) return <div>Error</div>;
   return (
@@ -50,18 +45,6 @@ const MyQuestionPage: NextPage = () => {
                   {question.category.name}
                 </div>
               </div>
-              <button
-                className="rounded-lg bg-red-200 p-2 text-xs text-red-600 hover:bg-red-300"
-                onClick={() => {
-                  if (
-                    confirm("Are you sure you want to delete this question")
-                  ) {
-                    mutate({ id: question.id });
-                  }
-                }}
-              >
-                Delete
-              </button>
             </div>
           );
         })}
