@@ -3,27 +3,19 @@ import { type FC } from "react";
 
 type AnswerFieldProps = {
   handleAnswerChange: (values: string) => void;
-  handleCorrectCheck: () => void;
-  removeAnswer: () => void;
-  removable: boolean;
+  isCorrect: boolean;
+  removeAnswer?: () => void;
 };
 
 const AnswerField: FC<AnswerFieldProps> = ({
   handleAnswerChange,
-  handleCorrectCheck,
+  isCorrect,
   removeAnswer,
-  removable,
 }) => {
   return (
     <div className="flex items-center gap-2">
-      <input
-        type="radio"
-        name="correct"
-        required={true}
-        onChange={() => handleCorrectCheck()}
-      />
       <textarea
-        className="resize-none"
+        className={`resize-none ${isCorrect ? "bg-green-500" : ""}`}
         rows={1}
         cols={32}
         onChange={(e) => {
@@ -32,7 +24,7 @@ const AnswerField: FC<AnswerFieldProps> = ({
         }}
         required
       ></textarea>
-      {removable && (
+      {removeAnswer && (
         <button type="button" onClick={() => removeAnswer()}>
           <MinusCircleIcon className="h-4 w-4 text-red-600" />
         </button>

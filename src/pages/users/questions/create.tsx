@@ -31,7 +31,7 @@ const CreateQuestionPage: NextPage = () => {
     {
       id: uuidv4(),
       content: "",
-      status: false,
+      status: true,
     },
     {
       id: uuidv4(),
@@ -52,27 +52,6 @@ const CreateQuestionPage: NextPage = () => {
             };
           }
           return answer;
-        });
-      });
-    };
-  };
-
-  const handleCorrectCheck = (id: string) => {
-    return () => {
-      setAnswers((prev) => {
-        return prev.map((answer) => {
-          if (answer.id === id) {
-            return {
-              id: answer.id,
-              content: answer.content,
-              status: true,
-            };
-          }
-          return {
-            id: answer.id,
-            content: answer.content,
-            status: false,
-          };
         });
       });
     };
@@ -136,17 +115,19 @@ const CreateQuestionPage: NextPage = () => {
           </select>
         </label>
 
-        <div className="text-sm">
-          <p>Answers (mark the correct answers)</p>
+        <div className="flex flex-col gap-2 text-sm">
+          <p>Answers</p>
           {answers.map((answer, i) => {
             return (
-              <AnswerField
-                key={answer.id}
-                handleAnswerChange={handleAnswerChange(answer.id)}
-                handleCorrectCheck={handleCorrectCheck(answer.id)}
-                removeAnswer={removeAnswer(answer.id)}
-                removable={i > 1}
-              />
+              <div key={answer.id}>
+                {i === 0 && <div className="text-xs">Correct answer</div>}
+                {i === 1 && <div className="text-xs">Other answers</div>}
+                <AnswerField
+                  handleAnswerChange={handleAnswerChange(answer.id)}
+                  isCorrect={answer.status}
+                  removeAnswer={i > 1 ? removeAnswer(answer.id) : undefined}
+                />
+              </div>
             );
           })}
         </div>

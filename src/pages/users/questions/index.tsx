@@ -18,13 +18,17 @@ const MyQuestionPage: NextPage = () => {
         <PlusIcon className="h-6 w-6" />
         <span>Create more question</span>
       </Link>
-      <Link
-        href={"/users/exams/create"}
-        className="mx-auto flex w-full items-center justify-center gap-1 bg-blue-700 py-4 text-center font-medium text-blue-200 hover:bg-blue-800"
-      >
-        <PlusIcon className="h-6 w-6" />
-        <span>Create exam</span>
-      </Link>
+      {data.length ? (
+        <Link
+          href={"/users/exams/create"}
+          className="mx-auto flex w-full items-center justify-center gap-1 bg-blue-700 py-4 text-center font-medium text-blue-200 hover:bg-blue-800"
+        >
+          <PlusIcon className="h-6 w-6" />
+          <span>Create exam</span>
+        </Link>
+      ) : (
+        <></>
+      )}
       <div className="flex flex-col">
         {data.map((question) => {
           return (
