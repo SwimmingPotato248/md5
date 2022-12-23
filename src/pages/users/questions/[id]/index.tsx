@@ -86,7 +86,7 @@ const QuestionDetailPage: NextPage = () => {
           </>
         ) : (
           <div className="flex justify-between">
-            <div className="text-lg font-semibold">{data?.content}</div>
+            <div className="pl-4 text-lg font-semibold">{data?.content}</div>
             <div className="flex gap-2">
               <button onClick={openModal}>
                 <TrashIcon className="h-6 w-6 border border-red-500 text-red-500 hover:bg-red-500 hover:text-red-100" />
@@ -97,10 +97,15 @@ const QuestionDetailPage: NextPage = () => {
             </div>
           </div>
         )}
-        <div className="text-xs text-gray-500">
-          Included in {data?._count.exams} exams
+        <div className="flex items-baseline divide-x divide-gray-700">
+          <div className="px-4 text-sm text-gray-500">
+            {data?.category.name}
+          </div>
+          <div className="px-4 text-xs text-gray-500">
+            Included in {data?._count.exams} exams
+          </div>
         </div>
-        <ol className="list-inside list-decimal">
+        <ol>
           {data?.answers.map((answer) => {
             return (
               <li

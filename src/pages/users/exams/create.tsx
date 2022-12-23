@@ -1,6 +1,11 @@
 import { trpc } from "@/src/utils/trpc";
-import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
+import {
+  ArrowLeftIcon,
+  MinusCircleIcon,
+  PlusCircleIcon,
+} from "@heroicons/react/24/solid";
 import { type NextPage } from "next";
+import Link from "next/link";
 import { useRef, useState } from "react";
 
 const CreateExamPage: NextPage = () => {
@@ -16,6 +21,13 @@ const CreateExamPage: NextPage = () => {
 
   return (
     <div className="mx-auto w-[450px]">
+      <Link
+        href={"/users/exams"}
+        className="my-4 flex w-24 items-center gap-2 text-sm font-semibold text-red-500"
+      >
+        <ArrowLeftIcon className="h-3 w-3 " />
+        Go back
+      </Link>
       <form
         className="bg-slate-200 p-4"
         onSubmit={(e) => {

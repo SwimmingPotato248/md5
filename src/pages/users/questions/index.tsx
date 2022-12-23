@@ -1,15 +1,22 @@
 import { trpc } from "@/src/utils/trpc";
-import { PlusIcon } from "@heroicons/react/24/solid";
+import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/24/solid";
 import { type NextPage } from "next";
 import Link from "next/link";
 
 const MyQuestionPage: NextPage = () => {
-  const { data, isLoading, isError } = trpc.question.getQuestions.useQuery();
+  const { data, isLoading, isError } = trpc.question.getQuestions.useQuery({});
 
   if (isLoading) return <div>Loading</div>;
   if (isError) return <div>Error</div>;
   return (
-    <div className="mx-auto mt-14 w-[500px] bg-gray-200 shadow">
+    <div className="mx-auto mt-14 w-[500px] shadow">
+      <Link
+        href={"/users"}
+        className="flex w-24 items-center gap-2 pl-4 text-sm font-semibold text-red-500"
+      >
+        <ArrowLeftIcon className="h-3 w-3 " />
+        Go back
+      </Link>
       <div className="py-2 text-center text-sm font-bold">My Questions</div>
       <Link
         href={"/users/questions/create"}

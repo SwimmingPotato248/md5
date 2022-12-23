@@ -17,7 +17,7 @@ const AnswerField: FC<AnswerFieldProps> = ({
       <textarea
         className={`resize-none ${isCorrect ? "bg-green-500" : ""}`}
         rows={1}
-        cols={32}
+        cols={37}
         onChange={(e) => {
           e.target.rows = Math.floor(e.target.value.length / e.target.cols) + 1;
           handleAnswerChange(e.target.value);

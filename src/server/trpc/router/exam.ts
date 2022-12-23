@@ -24,9 +24,23 @@ export const examRouter = router({
         },
       });
     }),
-  getAll: protectedProcedure.query(async ({ ctx }) => {
-    return await ctx.prisma.exam.findMany({
-      where: { user_id: ctx.session.user.id },
-    });
-  }),
+  getExams: protectedProcedure
+    .input(z.object({ take: z.number().optional() }))
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.exam.findMany({
+        where: { user_id: ctx.session.user.id },
+        include: { _count: { select: { questions: true } } },
+        take: input.take,
+      });
+    }),
+  getOne: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.exam.findUnique({
+        where: { id: input.id },
+        include: {
+          questions: { include: { answers: true } },
+        },
+      });
+    }),
 });

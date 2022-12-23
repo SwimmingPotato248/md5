@@ -6,14 +6,17 @@ export const questionRouter = router({
   getCategory: publicProcedure.query(async ({ ctx }) => {
     return await ctx.prisma.category.findMany();
   }),
-  getQuestions: protectedProcedure.query(async ({ ctx }) => {
-    return await ctx.prisma.question.findMany({
-      where: {
-        user_id: ctx.session.user.id,
-      },
-      include: { category: true },
-    });
-  }),
+  getQuestions: protectedProcedure
+    .input(z.object({ take: z.number().optional() }))
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.question.findMany({
+        where: {
+          user_id: ctx.session.user.id,
+        },
+        include: { category: true },
+        take: input.take,
+      });
+    }),
   create: protectedProcedure
     .input(
       z.object({
